@@ -1,17 +1,18 @@
 #include <iostream>
 #include <string.h>
+using namespace::std;
 
 class Student {
     public:
-        std::string name;
+        string name;
         int reg_no;
         int fees;
 
-        Student (std::string name_parameter, int reg_no_parameter, int fees_parameter=200000) {
-            fees = fees_parameter;
-            name = name_parameter;
-            // strcpy(name, name_parameter);
-            reg_no = reg_no_parameter;
+        Student (string name, int reg_no, int fees=200000) {
+            this->fees = fees;
+            this->name = name;
+            // strcpy(this->name, name);
+            this->reg_no = reg_no;
         };
 };
 
@@ -22,18 +23,18 @@ class AcadExcel : public Student {
 
         AcadExcel();
 
-        AcadExcel(std::string name_parameter, int reg_no_parameter, char cgpa_parameter, int income_parameter)
-        : Student(name_parameter, reg_no_parameter) {
-            cgpa = cgpa_parameter;
-            income = income_parameter;
+        AcadExcel(string name, int reg_no, char cgpa, int income)
+        : Student(name, reg_no) {
+            this->cgpa = cgpa;
+            this->income = income;
 
-            if ((cgpa == 's') && (income < 30000)) {
-                fees *= 0;
+            if ((this->cgpa == 's') && (this->income < 30000)) {
+                fees *= 0; // we need not use `this` pointer with fees because there is no local fees variable
             }
-            else if ((cgpa == 'a') && (31000 < income < 100000)) {
+            else if ((this->cgpa == 'a') && ((31000 < this->income)) && (this->income < 100000)) {
                 fees *= 0.5;
             };
-            std::cout << "Congratulations " << name << "! Your fees is " << fees << std::endl;
+            cout << "Congratulations " << name << "! Your fees is " << fees << endl;
         };
 };
 
@@ -44,22 +45,22 @@ class Sport : public Student {
 
         // Sport() {};
 
-        Sport(std::string name_parameter, int reg_no_parameter, char sport_parameter, int game_parameter)
-        : Student(name_parameter, reg_no_parameter) {
-            sport_level = sport_parameter;
-            games_played = game_parameter;
+        Sport(string name, int reg_no, char sport_level, int games_played)
+        : Student(name, reg_no) {
+            this->sport_level = sport_level;
+            this->games_played = games_played;
 
-            if ((sport_level == 'i') && (games_played > 2)) {
+            if ((this->sport_level == 'i') && (this->games_played > 2)) {
                 fees *= 0;
             }
-            else if ((sport_level == 'n') && (games_played > 10)) {
+            else if ((this->sport_level == 'n') && (this->games_played > 10)) {
                 fees *= 0.5;
             }
-            else if ((sport_level == 's') && (30 > games_played > 20)) {
+            else if ((this->sport_level == 's') && ((30 > this->games_played) && (this->games_played > 20))) {
                 fees *= 0.25;
             };
 
-            std::cout << "Congratulations " << name << "! Your fees is " << fees << std::endl;
+            cout << "Congratulations " << name << "! Your fees is " << fees << endl;
         };
 };
 
